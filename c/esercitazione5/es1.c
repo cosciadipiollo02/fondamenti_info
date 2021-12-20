@@ -60,12 +60,12 @@ void lunghezzalista(nodo *lista){
 
 void inseriscielemento(nodo *lista, int elemento, int posizione){
     nodo *temp1, *temp2;
-    temp1 = lista;
-    for(int i = 0; i < posizione; i++){
+    temp1 = lista;                         // inizializzo il puntatore sulla testa della lista
+    for(int i = 1; i < posizione-1; i++){  //mi sposto sull'elemento alla posizione prima di quello che voglio inserire 
         temp1 = temp1->next;
     }
-    temp2 = temp1->next;
-    nodo *nuovopunt = (nodo*) malloc(sizeof(nodo));
+    temp2 = temp1->next;              //salvo un altro puntatore successivo a quello che voglio inserire
+    nodo *nuovopunt = (nodo*) malloc(sizeof(nodo));        //creo il nuovo nodo 
     nuovopunt->dato = elemento; 
     temp1->next = nuovopunt;
     nuovopunt->next = temp2;
