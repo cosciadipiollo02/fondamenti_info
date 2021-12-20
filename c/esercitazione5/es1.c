@@ -8,13 +8,16 @@ typedef struct nodo{
 
 
 void stampalista(nodo *lista);
-void lunghezzalista(nodo *lista);
+int lunghezzalista(nodo *lista);
 void inseriscielemento(nodo *lista, int elemento, int posizione);
+void sommalista (nodo *lista);
+void eliminaripetizioni(nodo *lista);
+void eliminanodo(nodo *lista, nodo *nododaelim);
 
 
 int main(){
     nodo *lista, *temp, *nodocorr;
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < 7; i++){
         nodocorr = (nodo *)malloc(sizeof(nodo));
         
         nodocorr->dato = i;
@@ -33,8 +36,11 @@ int main(){
     temp->next = NULL;
 
     stampalista(lista);
-    lunghezzalista(lista);
-    inseriscielemento(lista, 56,2);
+    printf("\n\n");
+    sommalista(lista);
+    stampalista(lista);
+    eliminaripetizioni(lista);
+    printf("\n\n");
     stampalista(lista);
 }
 
@@ -47,7 +53,7 @@ void stampalista(nodo *lista){
     }
 }
 
-void lunghezzalista(nodo *lista){
+int lunghezzalista(nodo *lista){
     nodo *temp = lista;
     int contatore = 0;
     while(temp != NULL){
@@ -55,7 +61,7 @@ void lunghezzalista(nodo *lista){
         contatore++;
 
     }
-    printf("la lista e lunga %d \n",contatore);
+    return contatore;
 }
 
 void inseriscielemento(nodo *lista, int elemento, int posizione){
@@ -69,5 +75,53 @@ void inseriscielemento(nodo *lista, int elemento, int posizione){
     nuovopunt->dato = elemento; 
     temp1->next = nuovopunt;
     nuovopunt->next = temp2;
+
+}
+
+void sommalista(nodo *lista){
+    nodo *temp, *temp1;
+    temp1 = lista;
+    int contatore;
+    int lunghezza = lunghezzalista(lista);
+    for(int i = 0; i < lunghezza; i++){
+        temp = temp1;
+        for(int j = i; j < lunghezza; j++){
+            contatore += temp->dato;
+            temp = temp->next;
+        }
+        temp1->dato = contatore;
+        temp1 = temp1->next;
+        contatore = 0; 
+    }
+}
+
+void eliminanodo(nodo *lista, nodo *nododaelim){
+    nodo *temp;
+    temp = lista;
+    if(lista = nododaelim){
+        free(nododaelim);
+    }
+    else {
+        while(temp->next != nododaelim){
+            temp = temp->next;
+        }
+        temp->next = nododaelim->next;
+        free(nododaelim);
+    }
+}
+
+void eliminaripetizioni(nodo *lista){
+    nodo *temp1, *temp2;
+    temp1 = lista;
+    temp2 = lista;
+    while(temp1 != NULL){
+        while(temp2 != NULL){
+            if(temp1->dato = temp2->dato && temp1 != temp2){
+                eliminanodo(lista, temp1);
+            }
+            temp2 = temp2->next;
+        }
+        temp1 = temp1->next;
+    }
 
 }
