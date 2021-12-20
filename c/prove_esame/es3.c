@@ -8,7 +8,7 @@ int sommamatrice(int matrice[][N], int dimensione);
 
 int main(){
     int sommatoria = sommamatrice(a,3);
-    printf("%d \n", sommatoria);
+    printf("%d n", sommatoria);
 } 
 
 int sommamatrice(int matrice[][N], int dimensione){
