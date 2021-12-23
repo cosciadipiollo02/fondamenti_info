@@ -100,6 +100,7 @@ void eliminanodo(nodo *lista, nodo *nododaelim){
     temp = lista;
     if(lista = nododaelim){
         free(nododaelim);
+
     }
     else {
         while(temp->next != nododaelim){
@@ -111,17 +112,24 @@ void eliminanodo(nodo *lista, nodo *nododaelim){
 }
 
 void eliminaripetizioni(nodo *lista){
-    nodo *temp1, *temp2;
+    nodo *temp1, *temp2, *nododaelim;
     temp1 = lista;
     temp2 = lista;
     while(temp1 != NULL){
         while(temp2 != NULL){
-            if(temp1->dato = temp2->dato && temp1 != temp2){
-                eliminanodo(lista, temp1);
+            if(temp1->dato == temp2->dato && temp1 != temp2){
+                nododaelim = temp2;
+                temp1 = temp1->next;
+                temp2 = temp2->next;
+                eliminanodo(lista, nododaelim);
+
             }
             temp2 = temp2->next;
         }
         temp1 = temp1->next;
+        temp2 = lista;
+
+
     }
 
 }
