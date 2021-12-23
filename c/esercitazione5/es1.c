@@ -28,16 +28,16 @@ int main(){
         }
 
         else{
-            temp->next = nodocorr;
+            temp->next = nodocorr;   //temp e' il nodo precedente a nodocorr
             temp = nodocorr;
         }
     }
 
     temp->next = NULL;
 
+
     stampalista(lista);
     printf("\n\n");
-    sommalista(lista);
     stampalista(lista);
     eliminaripetizioni(lista);
     printf("\n\n");
@@ -98,7 +98,7 @@ void sommalista(nodo *lista){
 void eliminanodo(nodo *lista, nodo *nododaelim){
     nodo *temp;
     temp = lista;
-    if(lista = nododaelim){
+    if(lista == nododaelim){             //se mi trovo in testa alla lista elimino il nodo e basta
         free(nododaelim);
 
     }
@@ -112,24 +112,17 @@ void eliminanodo(nodo *lista, nodo *nododaelim){
 }
 
 void eliminaripetizioni(nodo *lista){
-    nodo *temp1, *temp2, *nododaelim;
+    nodo *temp1, *temp2;                //dichiaro i due nodi che mi servono per scorrere la lista
     temp1 = lista;
-    temp2 = lista;
-    while(temp1 != NULL){
-        while(temp2 != NULL){
-            if(temp1->dato == temp2->dato && temp1 != temp2){
-                nododaelim = temp2;
-                temp1 = temp1->next;
-                temp2 = temp2->next;
-                eliminanodo(lista, nododaelim);
-
+    while(temp1 != NULL){               //creo due cicli, il nodo del secondo parte dal nodo successivo al primo per evitare di controllare due volte
+        temp2 = temp1;
+        while(temp2->next != NULL){      
+            if(temp1->dato == temp2->next->dato){
+                eliminanodo(lista, temp2->next);
             }
-            temp2 = temp2->next;
+            temp2 = temp2->next;       // in questo modo scorro senza errori se eliminavo temp2 non sarei potuto passare al nodo successivo 
         }
         temp1 = temp1->next;
-        temp2 = lista;
-
-
     }
 
 }
