@@ -26,6 +26,7 @@ int main(){
            printf("%c",matrice[i][j]); 
         }
     }
+    ciao
 
     
 }
