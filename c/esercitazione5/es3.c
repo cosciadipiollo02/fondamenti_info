@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define N 30
 
 typedef struct nodo{
         char *nome;
@@ -17,7 +18,9 @@ int main(){
     printf("ciao");
     nodo *lista = (nodo *) malloc(sizeof(nodo));
     nodo *nodo1 = (nodo *) malloc(sizeof(nodo));
-    strcpy(lista->nome, "cipolla");
+    char *nomee = (char *)malloc(sizeof(char)*N);
+    strcpy(nomee, "cipolla");
+    lista->nome = nomee;
     lista->costo = 30;
     lista->quantita = 4;
     lista->next = nodo1;
@@ -25,7 +28,6 @@ int main(){
     nodo1->costo =  60;
     nodo1->quantita = 4;
     printf("ciao %d %s", lista->quantita , lista->nome);
-    stampalista(lista);
 }
 
 int lunghezzalista(nodo *lista){
