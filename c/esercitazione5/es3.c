@@ -20,14 +20,21 @@ int main(){
     nodo *nodo1 = (nodo *) malloc(sizeof(nodo));
     char *nomee = (char *)malloc(sizeof(char)*N);
     strcpy(nomee, "cipolla");
+    printf("%s \n", nomee);
     lista->nome = nomee;
     lista->costo = 30;
     lista->quantita = 4;
     lista->next = nodo1;
-    strcpy(nodo1->nome, "patate");
+    char *nome1= (char *)malloc(sizeof(char)*N);
+    strcpy(nome1, "patate");
+    nodo1->nome = nome1;
     nodo1->costo =  60;
     nodo1->quantita = 4;
-    printf("ciao %d %s", lista->quantita , lista->nome);
+    stampalista(lista);
+    char nomepat[] = "patate";
+    inserisci_elemento(lista, nomepat, 5,60);
+    stampalista(lista);
+
 }
 
 int lunghezzalista(nodo *lista){
@@ -57,7 +64,7 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita, int costo){
     temp = lista;
     int flag = 1;
     while(temp != NULL && flag){
-        if(temp->nome == nome){
+        if(strcmp(temp->nome, nome) == 0){
             temp ->quantita += quantita;
             flag = 0;
         }
