@@ -103,10 +103,9 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita,float costo){
     }
     //se la lista non esiste la aggiungo 
     if (temp == NULL){
-        nodo *nuovalista = (nodo *)malloc(sizeof(nodo));
-        nuovalista->costo = costo;
-        nuovalista->nome = nome;
-        nuovalista->quantita = quantita;
+        lista->costo = costo;
+        lista->nome = nome;
+        lista->quantita = quantita;
     }
 }
 
