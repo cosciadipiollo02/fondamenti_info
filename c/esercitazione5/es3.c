@@ -5,61 +5,79 @@
 
 typedef struct nodo{
         char *nome;
-        int costo;
+        float costo;
         int quantita;
         struct nodo *next;
     } nodo;
 
 void stampalista(nodo *lista);
-void inserisci_elemento(nodo *lista, char *nome, int quantita, int costo);
-int lunghezzalista(nodo *lista);
+void eliminanodo(nodo *lista, nodo *nododaelim);
+void elimina_elemento(nodo *lista, char *nome, int quantita);
+void inserisci_elemento(nodo *lista, char *nome, int quantita, float costo);
 
 int main(){
-    printf("ciao");
+    int flag = 1;
+    char nome[N];
+    int quantita;
+    float costo;
     nodo *lista = (nodo *) malloc(sizeof(nodo));
-    nodo *nodo1 = (nodo *) malloc(sizeof(nodo));
-    char *nomee = (char *)malloc(sizeof(char)*N);
-    strcpy(nomee, "cipolla");
-    printf("%s \n", nomee);
-    lista->nome = nomee;
-    lista->costo = 30;
-    lista->quantita = 4;
-    lista->next = nodo1;
-    char *nome1= (char *)malloc(sizeof(char)*N);
-    strcpy(nome1, "patate");
-    nodo1->nome = nome1;
-    nodo1->costo =  60;
-    nodo1->quantita = 4;
-    stampalista(lista);
-    char nomepat[] = "patate";
-    inserisci_elemento(lista, nomepat, 5,60);
-    stampalista(lista);
-
-}
-
-int lunghezzalista(nodo *lista){
-    nodo *temp = lista;
-    int contatore = 0;
-    while(temp != NULL){
-        temp = temp->next;
-        contatore++;
-
+    lista = NULL;
+    printf(" \n\n LISTA DELLA SPESA \n\n");
+    while(flag){
+        int scelta = 0;
+        printf("premere \n1 per inserire un elemento\n2 per eliminare\n3 per stampare la lista \n4 per terminare il progrramma \n");
+        scanf("%d", &scelta);
+        if (scelta == 1){
+            printf("inserire il nome, la quantita' e il costo del prodotto \n");
+            scanf("%s %d %f", nome, &quantita, &costo);
+            inserisci_elemento(lista, nome, quantita, costo);
+        }
+        else if (scelta == 2){
+            printf("inserire il nome e la quantita del prodotto da eliminare \n");
+            scanf("%s %d", nome, &quantita);
+            elimina_elemento(lista, nome, quantita);
+        }
+        else if (scelta == 3){
+            stampalista(lista);
+        }
+        else if (scelta == 4){
+            flag = 0;
+        }
+        else{
+            printf("numero non valido\n");
+        }
     }
-    return contatore;
+            
+
+
+            
+
+
+        
+
+
 }
 
 void stampalista(nodo *lista){
 
     nodo *temp = lista;
     while(temp != NULL){
-        printf("prodott %s costo %d quantita %d \n",temp->nome, temp->costo, temp->quantita);
+        printf("prodotto %s costo %f quantita %d \n",temp->nome, temp->costo, temp->quantita);
         temp = temp->next;
     }
+    float costototale = 0;
+    nodo *temp1 = lista;
+    while(temp1 != NULL){
+        costototale += temp1->costo * temp1->quantita;
+        temp1 = temp1->next;
+    }
+    printf("\n COSTO TOTALE : %f", costototale);
+    printf(" \n\n");
 }
 
 
 
-void inserisci_elemento(nodo *lista, char *nome, int quantita, int costo){
+void inserisci_elemento(nodo *lista, char *nome, int quantita,float costo){
     nodo *temp;
     temp = lista;
     int flag = 1;
@@ -70,12 +88,12 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita, int costo){
         }
         temp = temp->next;
     }
-//mi riporto sull ultimo elemento della lista 
+    //mi riporto sull ultimo elemento della lista 
     temp = lista;
     while(temp->next != NULL){
         temp = temp->next;
     }
-
+    // se l'elemento non e' nella lista lo aggiungo 
     if (flag){
         nodo *elemento = (nodo *)malloc(sizeof(nodo));
         temp->next = elemento;
@@ -83,10 +101,48 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita, int costo){
         elemento->nome = nome;
         elemento->quantita = quantita;
     }
-
-
-
+    //se la lista non esiste la aggiungo 
+    if (temp == NULL){
+        nodo *nuovalista = (nodo *)malloc(sizeof(nodo));
+        nuovalista->costo = costo;
+        nuovalista->nome = nome;
+        nuovalista->quantita = quantita;
+    }
 }
+
+void eliminanodo(nodo *lista, nodo *nododaelim){
+    nodo *temp;
+    temp = lista;
+    if(lista == nododaelim){             //se mi trovo in testa alla lista elimino il nodo e basta
+        free(nododaelim);
+
+    }
+    else {
+        while(temp->next != nododaelim){
+            temp = temp->next;
+        }
+        temp->next = nododaelim->next;
+        free(nododaelim);
+    }
+}
+
+
+void elimina_elemento(nodo *lista, char *nome, int quantita){
+    nodo *temp;
+    temp = lista;
+    while (temp != NULL){
+        if (nome == temp->nome){
+            if (temp->quantita > quantita){
+                temp->quantita -= quantita;
+            }
+            else{
+            eliminanodo(lista, temp);
+            }
+        }
+        temp = temp->next;
+    }
+}
+            
 
 
     
