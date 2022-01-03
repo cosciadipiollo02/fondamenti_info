@@ -90,11 +90,11 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita,float costo){
     }
     //mi riporto sull ultimo elemento della lista 
     temp = lista;
-    while(temp->next != NULL && lista != NULL){
+    while(lista != NULL && temp->next != NULL ){
         temp = temp->next;
     }
     // se l'elemento non e' nella lista lo aggiungo 
-    if (flag){
+    if (lista != NULL && flag){
         nodo *elemento = (nodo *)malloc(sizeof(nodo));
         temp->next = elemento;
         elemento->costo = costo;
