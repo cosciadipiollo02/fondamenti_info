@@ -25,7 +25,7 @@ int main(){
     printf(" \n\n LISTA DELLA SPESA \n\n");
     while(flag){
         int scelta = 0;
-        printf("premere \n1 per inserire un elemento\n2 per eliminare\n3 per stampare la lista \n4 per terminare il progrramma \n");
+        printf("\n1 per inserire un elemento\n2 per eliminare\n3 per stampare la lista \n4 per terminare il progrramma \n");
         scanf("%d", &scelta);
         if (scelta == 1){
             printf("inserire il nome, la quantita' e il costo del prodotto \n");
@@ -90,7 +90,7 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita,float costo){
     }
     //mi riporto sull ultimo elemento della lista 
     temp = lista;
-    while(temp->next != NULL){
+    while(temp->next != NULL && lista != NULL){
         temp = temp->next;
     }
     // se l'elemento non e' nella lista lo aggiungo 
