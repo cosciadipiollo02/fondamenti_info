@@ -17,20 +17,29 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita, float costo);
 
 int main(){
     int flag = 1;
-    char nome[N];
+    char *nome = (char*)malloc(sizeof(char)*N);
     int quantita;
     float costo;
     nodo *lista = (nodo *) malloc(sizeof(nodo));
-    lista = NULL;
+    char listtavuota[N] = "listavuota";
+    lista->nome = listtavuota;
     printf(" \n\n LISTA DELLA SPESA \n\n");
     while(flag){
         int scelta = 0;
-        printf("\n1 per inserire un elemento\n2 per eliminare\n3 per stampare la lista \n4 per terminare il progrramma \n");
+        printf("\n1 per inserire un elemento\n2 per eliminare\n3 per stampare la lista \n4 per terminare il progrramma \n\n");
         scanf("%d", &scelta);
         if (scelta == 1){
             printf("inserire il nome, la quantita' e il costo del prodotto \n");
             scanf("%s %d %f", nome, &quantita, &costo);
-            inserisci_elemento(lista, nome, quantita, costo);
+            if (strcmp(lista->nome, "listavuota") == 0 ){
+                lista->nome = nome;
+                lista->costo = costo;
+                lista->quantita = quantita;
+            }
+            else{
+
+                inserisci_elemento(lista, nome, quantita, costo);
+            }
         }
         else if (scelta == 2){
             printf("inserire il nome e la quantita del prodotto da eliminare \n");
@@ -46,6 +55,8 @@ int main(){
         else{
             printf("numero non valido\n");
         }
+        free(nome);
+        char *nome =(char *) malloc(sizeof(char)*N);
     }
             
 
@@ -90,22 +101,16 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita,float costo){
     }
     //mi riporto sull ultimo elemento della lista 
     temp = lista;
-    while(lista != NULL && temp->next != NULL ){
+    while(temp->next != NULL ){
         temp = temp->next;
     }
     // se l'elemento non e' nella lista lo aggiungo 
-    if (lista != NULL && flag){
+    if (flag){
         nodo *elemento = (nodo *)malloc(sizeof(nodo));
         temp->next = elemento;
         elemento->costo = costo;
         elemento->nome = nome;
         elemento->quantita = quantita;
-    }
-    //se la lista non esiste la aggiungo 
-    if (temp == NULL){
-        lista->costo = costo;
-        lista->nome = nome;
-        lista->quantita = quantita;
     }
 }
 
