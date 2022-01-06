@@ -4,7 +4,7 @@
 #define N 30
 
 typedef struct nodo{
-        char *nome;
+        char nome[N];
         float costo;
         int quantita;
         struct nodo *next;
@@ -17,12 +17,12 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita, float costo);
 
 int main(){
     int flag = 1;
-    char *nome = (char*)malloc(sizeof(char)*N);
+    char nome[N];
     int quantita;
     float costo;
     nodo *lista = (nodo *) malloc(sizeof(nodo));
-    char listtavuota[N] = "listavuota";
-    lista->nome = listtavuota;
+    lista->nome[0] = '\0';
+    strcpy(lista->nome, "listavuota");
     printf(" \n\n LISTA DELLA SPESA \n\n");
     while(flag){
         int scelta = 0;
@@ -32,7 +32,7 @@ int main(){
             printf("inserire il nome, la quantita' e il costo del prodotto \n");
             scanf("%s %d %f", nome, &quantita, &costo);
             if (strcmp(lista->nome, "listavuota") == 0 ){
-                lista->nome = nome;
+                strcpy(lista->nome, nome);
                 lista->costo = costo;
                 lista->quantita = quantita;
             }
@@ -55,8 +55,6 @@ int main(){
         else{
             printf("numero non valido\n");
         }
-        free(nome);
-        char *nome =(char *) malloc(sizeof(char)*N);
     }
             
 
@@ -70,10 +68,10 @@ int main(){
 }
 
 void stampalista(nodo *lista){
-
+    printf("\n\nPRODOTTO   | QUANTITA | COSTO\n");
     nodo *temp = lista;
     while(temp != NULL){
-        printf("prodotto %s costo %f quantita %d \n",temp->nome, temp->costo, temp->quantita);
+        printf("%-10s | %-8d | %f\n", temp->nome, temp->quantita, temp->costo);
         temp = temp->next;
     }
     float costototale = 0;
@@ -82,7 +80,7 @@ void stampalista(nodo *lista){
         costototale += temp1->costo * temp1->quantita;
         temp1 = temp1->next;
     }
-    printf("\n COSTO TOTALE : %f", costototale);
+    printf("\nCOSTO TOTALE : %f", costototale);
     printf(" \n\n");
 }
 
@@ -109,7 +107,7 @@ void inserisci_elemento(nodo *lista, char *nome, int quantita,float costo){
         nodo *elemento = (nodo *)malloc(sizeof(nodo));
         temp->next = elemento;
         elemento->costo = costo;
-        elemento->nome = nome;
+        strcpy(elemento->nome, nome);
         elemento->quantita = quantita;
     }
 }
@@ -135,7 +133,7 @@ void elimina_elemento(nodo *lista, char *nome, int quantita){
     nodo *temp;
     temp = lista;
     while (temp != NULL){
-        if (nome == temp->nome){
+        if (strcmp(lista->nome, nome) == 0){
             if (temp->quantita > quantita){
                 temp->quantita -= quantita;
             }

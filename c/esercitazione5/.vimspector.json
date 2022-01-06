@@ -1,0 +1,14 @@
+{
+  "configurations": {
+    "Launch": {
+      "adapter": "vscode-cpptools",
+      "configuration": {
+        "request": "launch",
+        "program": "/home/tommaso/fondamenti_info/c/esercitazione5/a.out",
+        "cwd": "/home/tommaso/fondamenti_info/c/esercitazione5",
+        "externalConsole": true,
+        "MIMode": "gdb"
+      }
+    }
+  }
+}
